@@ -17,4 +17,5 @@ module.exports = {
   ResolveLowStockAlertManager: require("./lowStockAlert/resolve-lowstockalert"),
   DeleteLowStockAlertManager: require("./lowStockAlert/delete-lowstockalert"),
   ListLowStockAlertsManager: require("./lowStockAlert/list-lowstockalerts"),
+  // InventoryManagementShareToken Db Object
 };

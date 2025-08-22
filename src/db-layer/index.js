@@ -66,4 +66,32 @@ module.exports = {
   deleteLowStockAlertById: mainFunctions.deleteLowStockAlertById,
   deleteLowStockAlertByQuery: mainFunctions.deleteLowStockAlertByQuery,
   getLowStockAlertByStoreId: mainFunctions.getLowStockAlertByStoreId,
+
+  // InventoryManagementShareToken Db Object
+  createInventoryManagementShareToken:
+    mainFunctions.createInventoryManagementShareToken,
+  getIdListOfInventoryManagementShareTokenByField:
+    mainFunctions.getIdListOfInventoryManagementShareTokenByField,
+  getInventoryManagementShareTokenById:
+    mainFunctions.getInventoryManagementShareTokenById,
+  getInventoryManagementShareTokenAggById:
+    mainFunctions.getInventoryManagementShareTokenAggById,
+  getInventoryManagementShareTokenListByQuery:
+    mainFunctions.getInventoryManagementShareTokenListByQuery,
+  getInventoryManagementShareTokenStatsByQuery:
+    mainFunctions.getInventoryManagementShareTokenStatsByQuery,
+  getInventoryManagementShareTokenByQuery:
+    mainFunctions.getInventoryManagementShareTokenByQuery,
+  updateInventoryManagementShareTokenById:
+    mainFunctions.updateInventoryManagementShareTokenById,
+  updateInventoryManagementShareTokenByIdList:
+    mainFunctions.updateInventoryManagementShareTokenByIdList,
+  updateInventoryManagementShareTokenByQuery:
+    mainFunctions.updateInventoryManagementShareTokenByQuery,
+  deleteInventoryManagementShareTokenById:
+    mainFunctions.deleteInventoryManagementShareTokenById,
+  deleteInventoryManagementShareTokenByQuery:
+    mainFunctions.deleteInventoryManagementShareTokenByQuery,
+  getInventoryManagementShareTokenByStoreId:
+    mainFunctions.getInventoryManagementShareTokenByStoreId,
 };

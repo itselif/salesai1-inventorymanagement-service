@@ -1,7 +1,12 @@
 const { HttpServerError, NotFoundError } = require("common");
 const { hexaLogger } = require("common");
 
-const { InventoryItem, InventoryMovement, LowStockAlert } = require("models");
+const {
+  InventoryItem,
+  InventoryMovement,
+  LowStockAlert,
+  InventoryManagementShareToken,
+} = require("models");
 const { Op } = require("sequelize");
 
 const getLowStockAlertAggById = async (lowStockAlertId) => {

@@ -48,6 +48,23 @@ const lowStockAlertMapping = {
   createdAt: { type: "date" },
   updatedAt: { type: "date" },
 };
+const inventoryManagementShareTokenMapping = {
+  id: { type: "keyword" },
+  _owner: { type: "keyword" },
+  configName: { type: "keyword", index: true },
+  objectName: { type: "keyword", index: true },
+  objectId: { type: "keyword", index: true },
+  ownerId: { type: "keyword", index: true },
+  peopleOption: { type: "keyword", index: true },
+  tokenPermissions: { type: "keyword", index: true },
+  allowedEmails: { type: "keyword", index: true },
+  expireDate: { type: "date", index: true },
+  storeId: { type: "keyword", index: true },
+  isActive: { type: "boolean" },
+  recordVersion: { type: "integer" },
+  createdAt: { type: "date" },
+  updatedAt: { type: "date" },
+};
 
 const updateElasticIndexMappings = async () => {
   try {
@@ -62,6 +79,13 @@ const updateElasticIndexMappings = async () => {
     ElasticIndexer.addMapping("lowStockAlert", lowStockAlertMapping);
     await new ElasticIndexer("lowStockAlert").updateMapping(
       lowStockAlertMapping,
+    );
+    ElasticIndexer.addMapping(
+      "inventoryManagementShareToken",
+      inventoryManagementShareTokenMapping,
+    );
+    await new ElasticIndexer("inventoryManagementShareToken").updateMapping(
+      inventoryManagementShareTokenMapping,
     );
   } catch (err) {
     hexaLogger.insertError(

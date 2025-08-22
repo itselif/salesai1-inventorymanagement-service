@@ -4,4 +4,5 @@ module.exports = {
   // InventoryItem Db Object
   // InventoryMovement Db Object
   // LowStockAlert Db Object
+  // InventoryManagementShareToken Db Object
 };

@@ -1,7 +1,12 @@
 const { DBGetListSequelizeCommand } = require("dbCommand");
 const { sequelize, hexaLogger } = require("common");
 const { Op } = require("sequelize");
-const { InventoryItem, InventoryMovement, LowStockAlert } = require("models");
+const {
+  InventoryItem,
+  InventoryMovement,
+  LowStockAlert,
+  InventoryManagementShareToken,
+} = require("models");
 
 const { InventoryItemQueryCache } = require("./query-cache-classes");
 

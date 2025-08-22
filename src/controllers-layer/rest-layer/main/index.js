@@ -3,4 +3,5 @@ module.exports = {
   inventoryItemRouter: require("./inventoryItem"),
   inventoryMovementRouter: require("./inventoryMovement"),
   lowStockAlertRouter: require("./lowStockAlert"),
+  inventoryManagementShareTokenRouter: require("./inventoryManagementShareToken"),
 };

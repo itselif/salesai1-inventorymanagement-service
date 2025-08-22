@@ -142,6 +142,8 @@ class LowstockalertDeletedPublisher extends ServicePublisher {
   }
 }
 
+// InventoryManagementShareToken Event Publisher Classes
+
 module.exports = {
   InventoryitemCreatedPublisher,
   InventoryitemUpdatedPublisher,

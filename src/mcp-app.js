@@ -83,6 +83,7 @@ app.post("/mcp", async (req, res) => {
       inventoryItemMcpRouter,
       inventoryMovementMcpRouter,
       lowStockAlertMcpRouter,
+      inventoryManagementShareTokenMcpRouter,
       getSessionRouter,
     } = require("mcpLayer")(initialHeaders);
 
@@ -105,6 +106,14 @@ app.post("/mcp", async (req, res) => {
       ),
     );
     lowStockAlertMcpRouter.forEach((mcpTool) =>
+      server.tool(
+        mcpTool.name,
+        mcpTool.description,
+        mcpTool.parameters,
+        mcpTool.controller,
+      ),
+    );
+    inventoryManagementShareTokenMcpRouter.forEach((mcpTool) =>
       server.tool(
         mcpTool.name,
         mcpTool.description,

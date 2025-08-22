@@ -9,7 +9,12 @@ const {
 } = require("common");
 const { hexaLogger } = require("common");
 
-const { InventoryItem, InventoryMovement, LowStockAlert } = require("models");
+const {
+  InventoryItem,
+  InventoryMovement,
+  LowStockAlert,
+  InventoryManagementShareToken,
+} = require("models");
 
 const { DBGetSequelizeCommand } = require("dbCommand");
 

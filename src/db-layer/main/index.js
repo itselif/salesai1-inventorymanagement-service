@@ -1,6 +1,7 @@
 const inventoryItemFunctions = require("./inventoryItem");
 const inventoryMovementFunctions = require("./inventoryMovement");
 const lowStockAlertFunctions = require("./lowStockAlert");
+const inventoryManagementShareTokenFunctions = require("./inventoryManagementShareToken");
 
 module.exports = {
   // main Database
@@ -83,4 +84,32 @@ module.exports = {
   deleteLowStockAlertById: lowStockAlertFunctions.deleteLowStockAlertById,
   deleteLowStockAlertByQuery: lowStockAlertFunctions.deleteLowStockAlertByQuery,
   getLowStockAlertByStoreId: lowStockAlertFunctions.getLowStockAlertByStoreId,
+
+  // InventoryManagementShareToken Db Object
+  createInventoryManagementShareToken:
+    inventoryManagementShareTokenFunctions.createInventoryManagementShareToken,
+  getIdListOfInventoryManagementShareTokenByField:
+    inventoryManagementShareTokenFunctions.getIdListOfInventoryManagementShareTokenByField,
+  getInventoryManagementShareTokenById:
+    inventoryManagementShareTokenFunctions.getInventoryManagementShareTokenById,
+  getInventoryManagementShareTokenAggById:
+    inventoryManagementShareTokenFunctions.getInventoryManagementShareTokenAggById,
+  getInventoryManagementShareTokenListByQuery:
+    inventoryManagementShareTokenFunctions.getInventoryManagementShareTokenListByQuery,
+  getInventoryManagementShareTokenStatsByQuery:
+    inventoryManagementShareTokenFunctions.getInventoryManagementShareTokenStatsByQuery,
+  getInventoryManagementShareTokenByQuery:
+    inventoryManagementShareTokenFunctions.getInventoryManagementShareTokenByQuery,
+  updateInventoryManagementShareTokenById:
+    inventoryManagementShareTokenFunctions.updateInventoryManagementShareTokenById,
+  updateInventoryManagementShareTokenByIdList:
+    inventoryManagementShareTokenFunctions.updateInventoryManagementShareTokenByIdList,
+  updateInventoryManagementShareTokenByQuery:
+    inventoryManagementShareTokenFunctions.updateInventoryManagementShareTokenByQuery,
+  deleteInventoryManagementShareTokenById:
+    inventoryManagementShareTokenFunctions.deleteInventoryManagementShareTokenById,
+  deleteInventoryManagementShareTokenByQuery:
+    inventoryManagementShareTokenFunctions.deleteInventoryManagementShareTokenByQuery,
+  getInventoryManagementShareTokenByStoreId:
+    inventoryManagementShareTokenFunctions.getInventoryManagementShareTokenByStoreId,
 };

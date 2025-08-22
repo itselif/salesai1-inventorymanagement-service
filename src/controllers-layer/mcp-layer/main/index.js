@@ -4,5 +4,7 @@ module.exports = (headers) => {
     inventoryItemMcpRouter: require("./inventoryItem")(headers),
     inventoryMovementMcpRouter: require("./inventoryMovement")(headers),
     lowStockAlertMcpRouter: require("./lowStockAlert")(headers),
+    inventoryManagementShareTokenMcpRouter:
+      require("./inventoryManagementShareToken")(headers),
   };
 };

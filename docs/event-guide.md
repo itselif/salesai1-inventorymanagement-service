@@ -333,6 +333,109 @@ This event announces the deletion of a `lowStockAlert` data object, covering bot
 }
 ```
 
+## DbEvent inventoryManagementShareToken-created
+
+**Event topic**: `salesai1-inventorymanagement-service-dbevent-inventorymanagementsharetoken-created`
+
+This event is triggered upon the creation of a `inventoryManagementShareToken` data object in the database. The event payload encompasses the newly created data, encapsulated within the root of the paylod.
+
+**Event payload**:
+
+```json
+{
+  "id": "ID",
+  "_owner": "ID",
+  "configName": "String",
+  "objectName": "String",
+  "objectId": "ID",
+  "ownerId": "ID",
+  "peopleOption": "String",
+  "tokenPermissions": null,
+  "allowedEmails": null,
+  "expireDate": "Date",
+  "storeId": "ID",
+  "isActive": true,
+  "recordVersion": "Integer",
+  "createdAt": "Date",
+  "updatedAt": "Date"
+}
+```
+
+## DbEvent inventoryManagementShareToken-updated
+
+**Event topic**: `salesai1-inventorymanagement-service-dbevent-inventorymanagementsharetoken-updated`
+
+Activation of this event follows the update of a `inventoryManagementShareToken` data object. The payload contains the updated information under the `inventoryManagementShareToken` attribute, along with the original data prior to update, labeled as `old_inventoryManagementShareToken`.
+
+**Event payload**:
+
+```json
+{
+  "old_inventoryManagementShareToken": {
+    "id": "ID",
+    "_owner": "ID",
+    "configName": "String",
+    "objectName": "String",
+    "objectId": "ID",
+    "ownerId": "ID",
+    "peopleOption": "String",
+    "tokenPermissions": null,
+    "allowedEmails": null,
+    "expireDate": "Date",
+    "storeId": "ID",
+    "isActive": true,
+    "recordVersion": "Integer",
+    "createdAt": "Date",
+    "updatedAt": "Date"
+  },
+  "inventoryManagementShareToken": {
+    "id": "ID",
+    "_owner": "ID",
+    "configName": "String",
+    "objectName": "String",
+    "objectId": "ID",
+    "ownerId": "ID",
+    "peopleOption": "String",
+    "tokenPermissions": null,
+    "allowedEmails": null,
+    "expireDate": "Date",
+    "storeId": "ID",
+    "isActive": true,
+    "recordVersion": "Integer",
+    "createdAt": "Date",
+    "updatedAt": "Date"
+  }
+}
+```
+
+## DbEvent inventoryManagementShareToken-deleted
+
+**Event topic**: `salesai1-inventorymanagement-service-dbevent-inventorymanagementsharetoken-deleted`
+
+This event announces the deletion of a `inventoryManagementShareToken` data object, covering both hard deletions (permanent removal) and soft deletions (where the `isActive` attribute is set to false). Regardless of the deletion type, the event payload will present the data as it was immediately before deletion, highlighting an `isActive` status of false for soft deletions.
+
+**Event payload**:
+
+```json
+{
+  "id": "ID",
+  "_owner": "ID",
+  "configName": "String",
+  "objectName": "String",
+  "objectId": "ID",
+  "ownerId": "ID",
+  "peopleOption": "String",
+  "tokenPermissions": null,
+  "allowedEmails": null,
+  "expireDate": "Date",
+  "storeId": "ID",
+  "isActive": false,
+  "recordVersion": "Integer",
+  "createdAt": "Date",
+  "updatedAt": "Date"
+}
+```
+
 # ElasticSearch Index Events
 
 Within the `InventoryManagement` service, most data objects are mirrored in ElasticSearch indices, ensuring these indices remain syncronized with their database counterparts through creation, updates, and deletions. These indices serve dual purposes: they act as a data source for external services and furnish aggregated data tailored to enhance frontend user experiences. Consequently, an ElasticSearch index might encapsulate data in its original form or aggregate additional information from other data objects.
@@ -1080,6 +1183,340 @@ The following JSON included in the payload illustrates the fullest representatio
 ## Index Event lowstockalert-extended
 
 **Event topic**: `elastic-index-salesai_lowstockalert-extended`
+
+**Event payload**:
+
+```js
+{
+  id: id,
+  extends: {
+    [extendName]: "Object",
+    [extendName + "_count"]: "Number",
+  },
+}
+```
+
+# Route Events
+
+Route events are emitted following the successful execution of a route. While most routes perform CRUD (Create, Read, Update, Delete) operations on data objects, resulting in route events that closely resemble database events, there are distinctions worth noting. A single route execution might trigger multiple CRUD actions and ElasticSearch indexing operations. However, for those primarily concerned with the overarching business logic and its outcomes, listening to the consolidated route event, published once at the conclusion of the route's execution, is more pertinent.
+
+Moreover, routes often deliver aggregated data beyond the primary database object, catering to specific client needs. For instance, creating a data object via a route might not only return the entity's data but also route-specific metrics, such as the executing user's permissions related to the entity. Alternatively, a route might automatically generate default child entities following the creation of a parent object. Consequently, the route event encapsulates a unified dataset encompassing both the parent and its children, in contrast to individual events triggered for each entity created. Therefore, subscribing to route events can offer a richer, more contextually relevant set of information aligned with business logic.
+
+The payload of a route event mirrors the REST response JSON of the route, providing a direct and comprehensive reflection of the data and metadata communicated to the client. This ensures that subscribers to route events receive a payload that encapsulates both the primary data involved and any additional information deemed significant at the business level, facilitating a deeper understanding and integration of the service's functional outcomes.
+
+## Route Event inventoryitem-created
+
+**Event topic** : `salesai1-inventorymanagement-service-inventoryitem-created`
+
+**Event payload**:
+
+The event payload, mirroring the REST API response, is structured as an encapsulated JSON. It includes metadata related to the API as well as the `inventoryItem` data object itself.
+
+The following JSON included in the payload illustrates the fullest representation of the **`inventoryItem`** object. Note, however, that certain properties might be excluded in accordance with the object's inherent logic.
+
+```json
+{
+  "status": "OK",
+  "statusCode": "200",
+  "elapsedMs": 126,
+  "ssoTime": 120,
+  "source": "db",
+  "cacheKey": "hexCode",
+  "userId": "ID",
+  "sessionId": "ID",
+  "requestId": "ID",
+  "dataName": "inventoryItem",
+  "action": "create",
+  "appVersion": "Version",
+  "rowCount": 1,
+  "inventoryItem": { "id": "ID", "isActive": true }
+}
+```
+
+## Route Event inventoryitem-updated
+
+**Event topic** : `salesai1-inventorymanagement-service-inventoryitem-updated`
+
+**Event payload**:
+
+The event payload, mirroring the REST API response, is structured as an encapsulated JSON. It includes metadata related to the API as well as the `inventoryItem` data object itself.
+
+The following JSON included in the payload illustrates the fullest representation of the **`inventoryItem`** object. Note, however, that certain properties might be excluded in accordance with the object's inherent logic.
+
+```json
+{
+  "status": "OK",
+  "statusCode": "200",
+  "elapsedMs": 126,
+  "ssoTime": 120,
+  "source": "db",
+  "cacheKey": "hexCode",
+  "userId": "ID",
+  "sessionId": "ID",
+  "requestId": "ID",
+  "dataName": "inventoryItem",
+  "action": "update",
+  "appVersion": "Version",
+  "rowCount": 1,
+  "inventoryItem": { "id": "ID", "isActive": true }
+}
+```
+
+## Route Event inventoryitem-deleted
+
+**Event topic** : `salesai1-inventorymanagement-service-inventoryitem-deleted`
+
+**Event payload**:
+
+The event payload, mirroring the REST API response, is structured as an encapsulated JSON. It includes metadata related to the API as well as the `inventoryItem` data object itself.
+
+The following JSON included in the payload illustrates the fullest representation of the **`inventoryItem`** object. Note, however, that certain properties might be excluded in accordance with the object's inherent logic.
+
+```json
+{
+  "status": "OK",
+  "statusCode": "200",
+  "elapsedMs": 126,
+  "ssoTime": 120,
+  "source": "db",
+  "cacheKey": "hexCode",
+  "userId": "ID",
+  "sessionId": "ID",
+  "requestId": "ID",
+  "dataName": "inventoryItem",
+  "action": "delete",
+  "appVersion": "Version",
+  "rowCount": 1,
+  "inventoryItem": { "id": "ID", "isActive": false }
+}
+```
+
+## Route Event inventorymovement-created
+
+**Event topic** : `salesai1-inventorymanagement-service-inventorymovement-created`
+
+**Event payload**:
+
+The event payload, mirroring the REST API response, is structured as an encapsulated JSON. It includes metadata related to the API as well as the `inventoryMovement` data object itself.
+
+The following JSON included in the payload illustrates the fullest representation of the **`inventoryMovement`** object. Note, however, that certain properties might be excluded in accordance with the object's inherent logic.
+
+```json
+{
+  "status": "OK",
+  "statusCode": "200",
+  "elapsedMs": 126,
+  "ssoTime": 120,
+  "source": "db",
+  "cacheKey": "hexCode",
+  "userId": "ID",
+  "sessionId": "ID",
+  "requestId": "ID",
+  "dataName": "inventoryMovement",
+  "action": "create",
+  "appVersion": "Version",
+  "rowCount": 1,
+  "inventoryMovement": { "id": "ID", "isActive": true }
+}
+```
+
+## Route Event inventorymovement-deleted
+
+**Event topic** : `salesai1-inventorymanagement-service-inventorymovement-deleted`
+
+**Event payload**:
+
+The event payload, mirroring the REST API response, is structured as an encapsulated JSON. It includes metadata related to the API as well as the `inventoryMovement` data object itself.
+
+The following JSON included in the payload illustrates the fullest representation of the **`inventoryMovement`** object. Note, however, that certain properties might be excluded in accordance with the object's inherent logic.
+
+```json
+{
+  "status": "OK",
+  "statusCode": "200",
+  "elapsedMs": 126,
+  "ssoTime": 120,
+  "source": "db",
+  "cacheKey": "hexCode",
+  "userId": "ID",
+  "sessionId": "ID",
+  "requestId": "ID",
+  "dataName": "inventoryMovement",
+  "action": "delete",
+  "appVersion": "Version",
+  "rowCount": 1,
+  "inventoryMovement": { "id": "ID", "isActive": false }
+}
+```
+
+## Route Event lowstockalert-created
+
+**Event topic** : `salesai1-inventorymanagement-service-lowstockalert-created`
+
+**Event payload**:
+
+The event payload, mirroring the REST API response, is structured as an encapsulated JSON. It includes metadata related to the API as well as the `lowStockAlert` data object itself.
+
+The following JSON included in the payload illustrates the fullest representation of the **`lowStockAlert`** object. Note, however, that certain properties might be excluded in accordance with the object's inherent logic.
+
+```json
+{
+  "status": "OK",
+  "statusCode": "200",
+  "elapsedMs": 126,
+  "ssoTime": 120,
+  "source": "db",
+  "cacheKey": "hexCode",
+  "userId": "ID",
+  "sessionId": "ID",
+  "requestId": "ID",
+  "dataName": "lowStockAlert",
+  "action": "create",
+  "appVersion": "Version",
+  "rowCount": 1,
+  "lowStockAlert": { "id": "ID", "isActive": true }
+}
+```
+
+## Route Event lowstockalert-resolved
+
+**Event topic** : `salesai1-inventorymanagement-service-lowstockalert-resolved`
+
+**Event payload**:
+
+The event payload, mirroring the REST API response, is structured as an encapsulated JSON. It includes metadata related to the API as well as the `lowStockAlert` data object itself.
+
+The following JSON included in the payload illustrates the fullest representation of the **`lowStockAlert`** object. Note, however, that certain properties might be excluded in accordance with the object's inherent logic.
+
+```json
+{
+  "status": "OK",
+  "statusCode": "200",
+  "elapsedMs": 126,
+  "ssoTime": 120,
+  "source": "db",
+  "cacheKey": "hexCode",
+  "userId": "ID",
+  "sessionId": "ID",
+  "requestId": "ID",
+  "dataName": "lowStockAlert",
+  "action": "update",
+  "appVersion": "Version",
+  "rowCount": 1,
+  "lowStockAlert": { "id": "ID", "isActive": true }
+}
+```
+
+## Route Event lowstockalert-deleted
+
+**Event topic** : `salesai1-inventorymanagement-service-lowstockalert-deleted`
+
+**Event payload**:
+
+The event payload, mirroring the REST API response, is structured as an encapsulated JSON. It includes metadata related to the API as well as the `lowStockAlert` data object itself.
+
+The following JSON included in the payload illustrates the fullest representation of the **`lowStockAlert`** object. Note, however, that certain properties might be excluded in accordance with the object's inherent logic.
+
+```json
+{
+  "status": "OK",
+  "statusCode": "200",
+  "elapsedMs": 126,
+  "ssoTime": 120,
+  "source": "db",
+  "cacheKey": "hexCode",
+  "userId": "ID",
+  "sessionId": "ID",
+  "requestId": "ID",
+  "dataName": "lowStockAlert",
+  "action": "delete",
+  "appVersion": "Version",
+  "rowCount": 1,
+  "lowStockAlert": { "id": "ID", "isActive": false }
+}
+```
+
+## Index Event inventorymanagementsharetoken-created
+
+**Event topic**: `elastic-index-salesai_inventorymanagementsharetoken-created`
+
+**Event payload**:
+
+```json
+{
+  "id": "ID",
+  "_owner": "ID",
+  "configName": "String",
+  "objectName": "String",
+  "objectId": "ID",
+  "ownerId": "ID",
+  "peopleOption": "String",
+  "tokenPermissions": null,
+  "allowedEmails": null,
+  "expireDate": "Date",
+  "storeId": "ID",
+  "isActive": true,
+  "recordVersion": "Integer",
+  "createdAt": "Date",
+  "updatedAt": "Date"
+}
+```
+
+## Index Event inventorymanagementsharetoken-updated
+
+**Event topic**: `elastic-index-salesai_inventorymanagementsharetoken-created`
+
+**Event payload**:
+
+```json
+{
+  "id": "ID",
+  "_owner": "ID",
+  "configName": "String",
+  "objectName": "String",
+  "objectId": "ID",
+  "ownerId": "ID",
+  "peopleOption": "String",
+  "tokenPermissions": null,
+  "allowedEmails": null,
+  "expireDate": "Date",
+  "storeId": "ID",
+  "isActive": true,
+  "recordVersion": "Integer",
+  "createdAt": "Date",
+  "updatedAt": "Date"
+}
+```
+
+## Index Event inventorymanagementsharetoken-deleted
+
+**Event topic**: `elastic-index-salesai_inventorymanagementsharetoken-deleted`
+
+**Event payload**:
+
+```json
+{
+  "id": "ID",
+  "_owner": "ID",
+  "configName": "String",
+  "objectName": "String",
+  "objectId": "ID",
+  "ownerId": "ID",
+  "peopleOption": "String",
+  "tokenPermissions": null,
+  "allowedEmails": null,
+  "expireDate": "Date",
+  "storeId": "ID",
+  "isActive": true,
+  "recordVersion": "Integer",
+  "createdAt": "Date",
+  "updatedAt": "Date"
+}
+```
+
+## Index Event inventorymanagementsharetoken-extended
+
+**Event topic**: `elastic-index-salesai_inventorymanagementsharetoken-extended`
 
 **Event payload**:
 

@@ -1,0 +1,15 @@
+module.exports = {
+  createInventoryManagementShareToken: require("./createInventoryManagementShareToken"),
+  getIdListOfInventoryManagementShareTokenByField: require("./getIdListOfInventoryManagementShareTokenByField"),
+  getInventoryManagementShareTokenById: require("./getInventoryManagementShareTokenById"),
+  getInventoryManagementShareTokenAggById: require("./getInventoryManagementShareTokenAggById"),
+  getInventoryManagementShareTokenListByQuery: require("./getInventoryManagementShareTokenListByQuery"),
+  getInventoryManagementShareTokenStatsByQuery: require("./getInventoryManagementShareTokenStatsByQuery"),
+  getInventoryManagementShareTokenByQuery: require("./getInventoryManagementShareTokenByQuery"),
+  updateInventoryManagementShareTokenById: require("./updateInventoryManagementShareTokenById"),
+  updateInventoryManagementShareTokenByIdList: require("./updateInventoryManagementShareTokenByIdList"),
+  updateInventoryManagementShareTokenByQuery: require("./updateInventoryManagementShareTokenByQuery"),
+  deleteInventoryManagementShareTokenById: require("./deleteInventoryManagementShareTokenById"),
+  deleteInventoryManagementShareTokenByQuery: require("./deleteInventoryManagementShareTokenByQuery"),
+  getInventoryManagementShareTokenByStoreId: require("./getInventoryManagementShareTokenByStoreId"),
+};

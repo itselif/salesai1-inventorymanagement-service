@@ -6,7 +6,12 @@ const {
   NotFoundError,
 } = require("common");
 
-const { InventoryItem, InventoryMovement, LowStockAlert } = require("models");
+const {
+  InventoryItem,
+  InventoryMovement,
+  LowStockAlert,
+  InventoryManagementShareToken,
+} = require("models");
 const { Op } = require("sequelize");
 const { sequelize } = require("common");
 

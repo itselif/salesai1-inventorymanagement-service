@@ -7,6 +7,7 @@ const { hexaLogger } = require("common");
 const InventoryItem = require("./inventoryItem");
 const InventoryMovement = require("./inventoryMovement");
 const LowStockAlert = require("./lowStockAlert");
+const InventoryManagementShareToken = require("./inventoryManagementShareToken");
 
 InventoryItem.prototype.getData = function () {
   const data = this.dataValues;
@@ -127,9 +128,26 @@ LowStockAlert.belongsTo(InventoryItem, {
   constraints: false,
 });
 
+InventoryManagementShareToken.prototype.getData = function () {
+  const data = this.dataValues;
+
+  for (const key of Object.keys(data)) {
+    if (key.startsWith("json_")) {
+      data[key] = JSON.parse(data[key]);
+      const newKey = key.slice(5);
+      data[newKey] = data[key];
+      delete data[key];
+    }
+  }
+
+  data._owner = data.ownerId ?? undefined;
+  return data;
+};
+
 module.exports = {
   InventoryItem,
   InventoryMovement,
   LowStockAlert,
+  InventoryManagementShareToken,
   updateElasticIndexMappings,
 };

@@ -103,11 +103,13 @@ const {
   inventoryItemRouter,
   inventoryMovementRouter,
   lowStockAlertRouter,
+  inventoryManagementShareTokenRouter,
 } = require("restLayer");
 
 app.use("", inventoryItemRouter);
 app.use("", inventoryMovementRouter);
 app.use("", lowStockAlertRouter);
+app.use("", inventoryManagementShareTokenRouter);
 
 // swagger
 
